@@ -1,5 +1,9 @@
 import requests
 import datetime
+import time
+
+# Global variable
+exit_program = False
 
 
 # TODO - add url/website to a variable and make dotenv file
@@ -64,13 +68,28 @@ def displayWaitTimes(waitTimes):
     """Displays / prints wait times for all locations."""
     for wait_time in waitTimes:
         print(f"{wait_time['Location']}\nWait time: {wait_time['FormattedWaitTime']}\n")
-    print("Last updated:", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    print("Last updated:", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S\n"))
+
+
+def refreshWaitTimes():
+    """Refreshes the wait times every 5 minutes."""
+
+    global exit_program
+
+    while not exit_program:
+        waitTimes = getWaitTimes()
+        displayWaitTimes(waitTimes)
+        print("Next update in 5 minutes...\n")
+
+        for _ in range(300):
+            if exit_program:
+                break
+            time.sleep(1)
 
 
 def main():
     """Main function to run the script."""
-    waitTimes = getWaitTimes()
-    displayWaitTimes(waitTimes)
+    refreshWaitTimes()
 
     # DEBUGGING
     # number of locations
