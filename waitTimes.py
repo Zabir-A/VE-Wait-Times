@@ -2,20 +2,6 @@ import requests
 import datetime
 
 
-# Example of data:
-
-# 0:
-#     id:	"cltti49d20wprt64ukhaw635q"
-#     locationId:	"clp033k9o0000qo413bjy9a91"
-#     createdAt:	"2024-03-16T03:01:24.708Z"
-#     reportId:	"cltti49d00wopt64uj80vcbet"
-#     waitTimeMinutes:	375
-#     elosMinutes:	434
-#     status:	"normal"
-#     location:
-#         slug:	"VGH"
-#         name:	"Vancouver General Hospital"
-
 # TODO - add url/website to a variable and make dotenv file
 # TODO - Test if else variables are necessary
 # TODO - Make UI (Optional)
@@ -50,13 +36,11 @@ def getWaitTimes():
                 if wait_time_minutes < 60:
                     wait_time_str = f"{wait_time_minutes} minutes"
 
-                # is else necessary?
                 else:
                     hours = wait_time_minutes // 60
                     minutes = wait_time_minutes % 60
                     wait_time_str = f"{hours} hours and {minutes} minutes"
 
-            # is else necessary?
             else:
                 wait_time_str = "Unknown, please check with hospital"
 
@@ -69,7 +53,6 @@ def getWaitTimes():
                 }
             )
 
-        # return location, formatted wait time
         return waitTimes
 
     except requests.RequestException as e:
